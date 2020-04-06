@@ -24,8 +24,11 @@ router.get('/datos', rutasProtegidas, (req, res) => {
 });
 
 router.post('/autenticar', async (req, res) => {
+
   if(req.body.usuario === "asfo" && req.body.contrasena === "holamundo") {
-    const payload = {
+
+      const user = require('../models/User');
+      const payload = {
       check:  true,
       username: req.body.usuario
     };
@@ -42,7 +45,7 @@ router.post('/autenticar', async (req, res) => {
       mensaje: 'Autenticación correcta',
       token: token,
       expiresIn: tokenData.exp,
-      username: tokenData.username
+      user: user
     });
   } else {
     res.json({ mensaje: "Usuario o contraseña incorrectos"})

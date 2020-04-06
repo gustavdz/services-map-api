@@ -1,5 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
+const cors = require('cors');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -28,12 +29,35 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // 3
 app.use(bodyParser.json());
 
-//rutas
+
+
+
+
+//cargar ficheros rutas
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+var localRouter = require('./routes/locals');
+var CategoryRouter = require('./routes/category');
+
+
+
+//CORS
+//permitir el acceso o llamadas ajax al api desde cualquier frontend
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*'); //cualquier frente puede hacer peticiones ajax
+  res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+  res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+  next();
+});
+
+
+//usar rutas
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/locals', localRouter);
+app.use('/category', CategoryRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
