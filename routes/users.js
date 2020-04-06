@@ -3,6 +3,7 @@ var router = express.Router();
 var dotenv = require('dotenv').config();
 var jwt = require('jsonwebtoken');
 var config = require('../configs/config');
+var UserController = require('../controllers/UserController');
 
 //middlewares
 var rutasProtegidas = require('../middlewares/protectedroutes');
@@ -12,6 +13,9 @@ var rutasProtegidas = require('../middlewares/protectedroutes');
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
+router.get('/test', UserController.test);
+router.post('/signup', UserController.signup);
+router.post('/login', UserController.login);
 
 router.get('/datos', rutasProtegidas, (req, res) => {
  const datos = [

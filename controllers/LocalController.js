@@ -24,20 +24,23 @@ var Localcontroller = {
         try{
             //dara true la variable cuando no este vacio
             var validate_name = !validator.isEmpty(params.name);
-           var validate_category = !validator.isEmpty(params.category);
+            var validate_category = !validator.isEmpty(params.category_id);
+            var validate_categoryLength = !validator.equals(params.category_id,'0');
             var validate_lat = !validator.isEmpty(params.lat);
             var validate_lng = !validator.isEmpty(params.lng);
             var validate_label = !validator.isEmpty(params.label);
 
 
         }catch(err){
-            return res.status(404).send({
+            return res.status(400).send({
                 status: 'error',
-                message: 'Faltan datos para enviar'
+                message: err
             });
         }
 
-        if(validate_name && validate_category && validate_lat && validate_lng && validate_label){
+        if(validate_name && validate_category && validate_lat && validate_lng && validate_label && validate_categoryLength){
+            console.log(validate_categoryLength);
+
             //Crear objeto a guardar
             var local = new Local();
             local.name = params.name;
@@ -46,7 +49,7 @@ var Localcontroller = {
             } else {
                 local.description = null;
             }
-            local.category = params.category;
+            local.category = params.category_id;
             local.lat = params.lat;
             local.lng = params.lng;
             local.label = params.label;
@@ -68,6 +71,12 @@ var Localcontroller = {
             });
             */
 
+        }
+        else {
+            return res.status(400).send({
+                status: 'error',
+                message: 'los datos no son válidos'
+            });
         }
 
     },// fin metodo save
@@ -161,7 +170,7 @@ var Localcontroller = {
         try{
             //dara true la variable cuando no este vacio
             var validate_name = !validator.isEmpty(params.name);
-            var validate_category = !validator.isEmpty(params.category);
+            var validate_category = !validator.isEmpty(params.category_id);
             var validate_lat = !validator.isEmpty(params.lat);
             var validate_lng = !validator.isEmpty(params.lng);
             var validate_label = !validator.isEmpty(params.label);
@@ -174,7 +183,11 @@ var Localcontroller = {
             });
         }
 
+
+
+
         if(validate_name && validate_category && validate_lat && validate_lng && validate_label){
+
 
             Local.findOneAndUpdate({_id: localId}, params, {new:true}, (err, localUpdated) =>{
                 if(err){

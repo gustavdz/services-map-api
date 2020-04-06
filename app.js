@@ -30,9 +30,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-
-
-
 //cargar ficheros rutas
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -40,15 +37,13 @@ var usersRouter = require('./routes/users');
 var localRouter = require('./routes/locals');
 var CategoryRouter = require('./routes/category');
 
-
-
 //CORS
 //permitir el acceso o llamadas ajax al api desde cualquier frontend
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*'); //cualquier frente puede hacer peticiones ajax
-  res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-  res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+  res.header('Access-Control-Allow-Headers', '*');
+  res.header('Access-Control-Allow-Methods', '*');
+  res.header('Allow', '*');
   next();
 });
 
