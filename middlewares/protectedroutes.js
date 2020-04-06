@@ -17,7 +17,7 @@ rutasProtegidas.use((req, res, next) => {
       }
     });
   } else {
-    res.send({
+    res.status(400).send({
         mensaje: 'Token no proveída.'
     });
   }

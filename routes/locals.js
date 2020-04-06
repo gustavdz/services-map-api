@@ -15,8 +15,8 @@ router.get('/test', LocalController.test);
 
 //CRUD locales
 router.post('/save', rutasProtegidas, LocalController.save);
-router.get('/get-locals', rutasProtegidas , LocalController.getLocals);
-router.get('/get/:id', rutasProtegidas , LocalController.showLocal);
+router.get('/get-locals', LocalController.getLocals);
+router.get('/get/:id',  LocalController.showLocal);
 router.put('/edit/:id', rutasProtegidas ,LocalController.update);
 router.delete('/delete/:id', rutasProtegidas ,LocalController.delete);
 

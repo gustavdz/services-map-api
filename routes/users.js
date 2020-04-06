@@ -16,6 +16,7 @@ router.get('/', function(req, res, next) {
 router.get('/test', UserController.test);
 router.post('/signup', UserController.signup);
 router.post('/login', UserController.login);
+router.get('/get', rutasProtegidas, UserController.showUser);
 
 router.get('/datos', rutasProtegidas, (req, res) => {
  const datos = [

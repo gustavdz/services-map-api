@@ -64,6 +64,7 @@ var UserController = {
                     name: user.name,
                     phone: user.phone,
                     email: user.email,
+                    isAdmin: user.isAdmin,
                 }
             };
 
@@ -109,7 +110,7 @@ var UserController = {
 
         if(validate_email && validate_password){
             const vEmail = await User.findOne({email: params.email}, async (err, usuario) => {
-                if (err){
+                if (err || !usuario){
                     return res.status(400).send({
                         message: 'El usuario no existe'
                     });
@@ -124,6 +125,7 @@ var UserController = {
                             name: usuario.name,
                             phone: usuario.phone,
                             email: usuario.email,
+                            isAdmin: usuario.isAdmin
                         }
                     };
 
@@ -153,7 +155,29 @@ var UserController = {
             });
         }
 
-    },
+    }, // fin metodo login
+
+
+    showUser: (req,res) =>{
+
+        // recoger token
+
+        const token = req.headers['authorization'];
+
+        if (token) {
+            jwt.verify(token, config.llave, (err, decoded) => {
+                return res.status(200).send({
+                    status: "Success",
+                    userObj: decoded
+                })
+
+            });
+        }
+
+
+
+    }//fin metodo showUser
+
 
 };//fin controlador
 

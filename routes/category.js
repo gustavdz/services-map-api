@@ -21,8 +21,8 @@ router.get('/test', rutasProtegidas , CategoryController.test);
 
 //CRUD
 router.post('/save', rutasProtegidas , CategoryController.save);
-router.get('/get-categories', rutasProtegidas ,CategoryController.getCategories);
-router.get('/get/:id', rutasProtegidas ,CategoryController.showCategory);
+router.get('/get-categories', CategoryController.getCategories);
+router.get('/get/:id', CategoryController.showCategory);
 router.put('/edit/:id', rutasProtegidas ,CategoryController.update);
 router.delete('/delete/:id', rutasProtegidas ,CategoryController.delete);
 
